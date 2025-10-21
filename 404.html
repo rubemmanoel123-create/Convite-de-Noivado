@@ -21,16 +21,19 @@
             max-width: 400px;
             width: 90%;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
-            /* Configuração do Fade-in (usando as propriedades do style.css) */
+            
+            /* Garante que comece invisível e tenha transição */
             opacity: 0; 
             transform: scale(0.9); 
-            transition: opacity 1.5s ease-out, transform 1.5s ease-out; /* Note a duração de 1.5s */
+            transition: opacity 1.5s ease-out, transform 1.5s ease-out; /* 1.5s é o tempo da transição */
         }
-        /* Classe para ativar o Fade-in após o carregamento */
+        
+        /* Classe para ativar o Fade-in */
         .feedback-box.show {
             opacity: 1;
             transform: scale(1);
         }
+
         .feedback-box h1 {
             color: #4CAF50; /* Verde de sucesso */
             font-size: 2em;
@@ -59,13 +62,37 @@
     </div>
     
     <script>
-        // Script para aplicar o fade-in na caixa de feedback
         document.addEventListener('DOMContentLoaded', () => {
             const feedbackBox = document.getElementById('feedback-box');
-            // Aplica o 'show' logo após o carregamento para disparar a transição
+            
+            // Tempo de transição definido no CSS
+            const TEMPO_TRANSICAO = 1500; // 1.5 segundos
+            // Tempo total que a mensagem deve ficar visível
+            const TEMPO_DE_EXIBICAO = 3000; // 3 segundos
+
+            // 1. FADE IN (Aparecer)
             setTimeout(() => {
                 feedbackBox.classList.add('show');
             }, 100); 
+
+            // 2. FADE OUT (Desaparecer)
+            // O tempo é a soma do tempo de exibição mais o pequeno delay inicial.
+            setTimeout(() => {
+                
+                // Remove a classe 'show' (que define opacity: 1)
+                feedbackBox.classList.remove('show'); 
+                
+                // Define opacity para 0 manualmente para iniciar o fade-out
+                feedbackBox.style.opacity = '0';
+                feedbackBox.style.transform = 'scale(0.9)';
+                
+                // 3. Esconde o elemento completamente após o fade-out terminar
+                setTimeout(() => {
+                    feedbackBox.style.display = 'none'; 
+                    // O vídeo de fundo fica visível
+                }, TEMPO_TRANSICAO); 
+                
+            }, TEMPO_DE_EXIBICAO + 100); // 3 segundos de exibição + 100ms de delay
         });
     </script>
 </body>
