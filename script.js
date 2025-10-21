@@ -4,21 +4,20 @@ document.addEventListener('DOMContentLoaded', () => {
     const playButtonContainer = document.getElementById('play-button-container');
     const playButton = document.getElementById('play-button');
     const rsvpFormContainer = document.getElementById('rsvp-form-container');
-    const rsvpForm = document.getElementById('rsvp-form');
-    const feedbackMessage = document.getElementById('message');
+    // const rsvpForm = document.getElementById('rsvp-form'); // Não é mais necessário para o envio
+    // const feedbackMessage = document.getElementById('message'); // Não é mais necessário para a mensagem de sucesso
 
-    // Função para mostrar o botão "Continuar" (COM FADE IN CORRIGIDO)
+    // Função para mostrar o botão "Continuar" (COM FADE IN)
     const showPlayButton = () => {
         if (playButtonContainer.classList.contains('hidden')) {
             
             // 1. Remove 'hidden' para exibir o elemento (ele já está com opacity: 0 no CSS)
             playButtonContainer.classList.remove('hidden');
             
-            // 2. Truque para forçar o navegador a renderizar as mudanças de CSS
-            // antes de aplicar a próxima classe. Isso garante que a transição ocorra.
+            // 2. Truque para forçar o navegador a renderizar as mudanças de CSS (garante a transição)
             void playButtonContainer.offsetWidth; 
             
-            // 3. Adiciona 'fade-in' para disparar a transição suave de 0.5s
+            // 3. Adiciona 'fade-in' para disparar a transição suave
             playButtonContainer.classList.add('fade-in');
 
             video.pause(); // Pausa o vídeo
@@ -39,7 +38,8 @@ document.addEventListener('DOMContentLoaded', () => {
         // 1. Inicia o FADE OUT do botão atual
         playButtonContainer.classList.remove('fade-in');
         
-        // 2. Após 500ms (tempo da transição CSS), esconde e inicia o FADE IN do formulário
+        // 2. Após 500ms (ajuste este valor no CSS se quiser uma transição mais lenta),
+        //    esconde o botão e inicia o FADE IN do formulário
         setTimeout(() => {
             // Esconde o container do botão (DOM)
             playButtonContainer.classList.add('hidden');
@@ -56,43 +56,8 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 500); // O tempo aqui (500ms) deve ser igual ao tempo de transição no CSS
     });
 
-    // --- Lógica do Formulário (COM VALIDAÇÃO) ---
-
-    rsvpForm.addEventListener('submit', (e) => {
-        e.preventDefault(); // Impede o recarregamento da página
-
-        const nomeCompleto = document.getElementById('nome').value.trim();
-        const confirmou = document.getElementById('confirmar').checked;
-        const nomeInput = document.getElementById('nome');
-
-        // 1. VERIFICAÇÃO PRINCIPAL: Confirmação de Presença
-        if (!confirmou) {
-            feedbackMessage.textContent = '⚠️ Por favor, selecione a caixa para confirmar sua presença.';
-            feedbackMessage.style.color = '#FF9800'; 
-            feedbackMessage.classList.remove('hidden');
-            return; 
-        }
-        
-        // 2. VERIFICAÇÃO SECUNDÁRIA: Nome Vazio
-        if (nomeCompleto === '') {
-            feedbackMessage.textContent = '⚠️ Por favor, preencha seu nome completo.';
-            feedbackMessage.style.color = '#FF9800'; 
-            feedbackMessage.classList.remove('hidden');
-            nomeInput.focus(); 
-            return; 
-        }
-
-        // Se as validações passaram: Sucesso
-        let messageText = '';
-        messageText = `🎉 ${nomeCompleto}, sua presença está confirmada! Nos vemos lá.`;
-        feedbackMessage.style.color = '#4CAF50'; 
-        
-        // Limpa e exibe a mensagem
-        rsvpForm.reset(); 
-        feedbackMessage.textContent = messageText;
-        feedbackMessage.classList.remove('hidden');
-        
-        // Esconde o formulário principal
-        rsvpForm.style.display = 'none';
-    });
+    // --- Lógica do Formulário (REMOVIDA) ---
+    // O rsvpForm.addEventListener('submit', ...) foi REMOVIDO
+    // O envio de dados agora é tratado diretamente pelo FormSubmit
+    // configurado no atributo 'action' do seu arquivo index.html.
 });
