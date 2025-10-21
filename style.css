@@ -1,0 +1,134 @@
+/* 1. Reset Básico e Fundo */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-color: #222; /* Cor de fundo para fallback/testes */
+    color: rgb(0, 0, 0); /* Cor do texto no BODY (importante para acessibilidade) */
+    min-height: 100vh;
+    overflow: hidden; /* Garante que não haja barra de rolagem */
+}
+
+/* 2. Estilização Crítica do Vídeo de Fundo */
+#background-video {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    
+    /* Garante que o vídeo se encaixe mantendo a proporção (contain) */
+    object-fit: contain; 
+    
+    z-index: -10;
+    /* Filtros de brilho ou sobreposição foram removidos para deixar o vídeo aceso. */
+    background-color: black; /* Garante que as barras laterais fiquem pretas no modo 'contain' */
+}
+
+/* 3. Container de Conteúdo (Botão e Formulário) */
+.content-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* Camada de sobreposição escura (background-color: rgba) foi removida. */
+}
+
+/* 4. Estilos Comuns de Painel e Botão (COM TRANSIÇÃO) */
+#play-button-container,
+#rsvp-form-container {
+    padding: 25px; 
+    background-color: rgba(255, 255, 255, 0.85); 
+    border-radius: 10px;
+    max-width: 350px; 
+    width: 90%;
+    text-align: center;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+
+    /* PROPRIEDADES DE TRANSIÇÃO */
+    opacity: 0; 
+    transform: scale(0.9); 
+    /* DURAÇÃO AUMENTADA PARA 1.5 SEGUNDOS */
+    transition: opacity 1.5s ease-out, transform 1.5s ease-out; 
+}
+
+h1, h2 {
+    color: #010101; /* Preto */
+    margin-top: 0;
+    font: normal 25pt italic; /* Fonte e tamanho do título */
+}
+
+/* Botões */
+button {
+    padding: 12px 25px;
+    font-size: 1.1em;
+    font-weight: bold;
+    color: rgb(255, 255, 255);
+    background-color: #6b734f; /* Cor de destaque */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-top: 15px;
+}
+
+button:hover {
+    background-color: #c45d86;
+}
+
+/* Formulário */
+.form-group {
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    /* Borda preta adicionada para visibilidade */
+    border: 1px solid #000000; 
+    border-radius: 5px;
+    box-sizing: border-box; 
+    color: #333;
+    font-size: 1em;
+}
+
+.checkbox-group {
+    display: flex;
+    align-items: center;
+}
+
+.checkbox-group label {
+    margin-bottom: 0;
+    margin-left: 10px;
+    font-weight: normal;
+}
+
+/* Utilitário para esconder */
+.hidden {
+    display: none !important;
+}
+
+/* 5. Classe que Ativa a Transição */
+.fade-in {
+    opacity: 1 !important;
+    transform: scale(1) !important;
+}
+
+/* Mensagem de Feedback (Sucesso/Erro) */
+#message {
+    margin-top: 20px;
+    font-weight: bold;
+    color: #4CAF50; /* Verde para feedback */
+    font-size: 1.4em; /* Aumentado para destaque */
+}
