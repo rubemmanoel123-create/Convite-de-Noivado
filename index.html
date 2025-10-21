@@ -3,49 +3,97 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Confirmação de Presença | Noivado</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Obrigado pela Confirmação!</title>
+    <link rel="stylesheet" href="style.css"> 
+    <style>
+        /* Estilos específicos para a página de sucesso */
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            text-align: center;
+        }
+        .feedback-box {
+            padding: 40px;
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+            max-width: 400px;
+            width: 90%;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+            /* Configuração do Fade-in (usando as propriedades do style.css) */
+            opacity: 0; 
+            transform: scale(0.9); 
+            /* Importante: Mantenha a transição do CSS aqui para o efeito suave */
+            transition: opacity 1.5s ease-out, transform 1.5s ease-out; 
+        }
+        /* Classe para ativar o Fade-in */
+        .feedback-box.show {
+            opacity: 1;
+            transform: scale(1);
+        }
+        /* Classe para ativar o Fade-out */
+        .feedback-box.hide {
+            opacity: 0;
+            transform: scale(0.9);
+        }
+        .feedback-box h1 {
+            color: #4CAF50; /* Verde de sucesso */
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+        .feedback-box p {
+            font-size: 1.4em;
+            font-weight: bold;
+            color: #010101; 
+        }
+    </style>
 </head>
 <body>
-
+    
     <video id="background-video" autoplay loop muted playsinline>
         <source src="fundo.mp4" type="video/mp4">
         Seu navegador não suporta vídeos.
     </video>
 
     <div class="content-container">
-        
-        <div id="play-button-container" class="hidden">
-            <h1>Confirme sua presença!</h1>
-            <button id="play-button">CONTINUAR</button>
-        </div>
-
-        <div id="rsvp-form-container" class="hidden">
-            <h2>Confirmação de Presença</h2>
-            
-            <form id="rsvp-form" action="https://formsubmit.co/rubemmanoel123@gmail.com" method="POST">
-                
-                <div class="form-group">
-                    <label for="nome">Nome Completo:</label>
-                    <input type="text" id="nome" name="Nome Completo" required>
-                </div>
-                
-                <div class="form-group checkbox-group">
-                    <input type="checkbox" id="confirmar" name="Confirmacao" value="Sim" required>
-                    <label for="confirmar">Sim, confirmo minha presença no Noivado! 🎉</label>
-                </div>
-
-                <button type="submit">Enviar Confirmação</button>
-
-                <input type="hidden" name="_captcha" value="false"> 
-                <input type="hidden" name="_next" value="https://rubemmanoel123-create.github.io/Convite-de-Noivado/sucesso">
-            </form>
-            
-            <p id="message" class="hidden"></p>
+        <div class="feedback-box" id="feedback-box">
+            <h1>🎉 Presença Confirmada!</h1>
+            <p>Sua presença está confirmada! Nos vemos lá.</p>
+            <p style="font-size: 0.9em; font-weight: normal; margin-top: 20px;">Obrigado por confirmar.</p>
         </div>
     </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const feedbackBox = document.getElementById('feedback-box');
+            
+            // 1. Inicia o FADE IN da caixa de feedback
+            setTimeout(() => {
+                feedbackBox.classList.add('show');
+            }, 100); 
 
-    <script src="script.js"></script>
+            // 2. Define o temporizador para 3 segundos após o FADE IN (100ms)
+            // (100ms do delay de início + 3000ms de exibição = 3.1 segundos no total)
+            const TEMPO_DE_EXIBICAO = 3000; // 3 segundos
+
+            setTimeout(() => {
+                
+                // 3. Inicia o FADE OUT da caixa
+                feedbackBox.classList.add('hide');
+                feedbackBox.classList.remove('show');
+                
+                // 4. Após a transição terminar (1.5 segundos, definido no CSS), esconde a caixa completamente
+                const TEMPO_TRANSICAO = 1500; 
+                
+                setTimeout(() => {
+                    // Esconde a caixa do DOM
+                    feedbackBox.style.display = 'none'; 
+                    // O vídeo de fundo fica visível
+                }, TEMPO_TRANSICAO); 
+                
+            }, TEMPO_DE_EXIBICAO); 
+        });
+    </script>
 </body>
 </html>
-
