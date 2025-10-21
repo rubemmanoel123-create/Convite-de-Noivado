@@ -18,11 +18,14 @@ document.addEventListener('DOMContentLoaded', () => {
         return document.cookie.includes(HAS_SUBMITTED_COOKIE);
     };
 
-    // Define o cookie para expirar em 365 dias (Garante que seja persistente)
+    // Define o cookie para expirar em 365 dias
     const setSubmittedCookie = () => {
         const date = new Date();
-        date.setTime(date.getTime() + (365 * 24 * 60 * 60 * 1000)); // 365 dias
-        document.cookie = `${HAS_SUBMITTED_COOKIE}=true; expires=${date.toUTCString()}; path=/; SameSite=Lax`;
+        // Define a data de expiração para 365 dias
+        date.setTime(date.getTime() + (365 * 24 * 60 * 60 * 1000)); 
+        
+        // **PARTE REFORÇADA:** Garantia de persistência no domínio
+        document.cookie = `${HAS_SUBMITTED_COOKIE}=true; expires=${date.toUTCString()}; path=/; SameSite=Lax; Secure`;
     };
 
     // ---------------------- Ação de BLOQUEIO IMEDIATO ----------------------
