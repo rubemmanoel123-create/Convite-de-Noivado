@@ -40,7 +40,8 @@ body {
 
 /* 4. Estilos Comuns de Painel e Botão (COM TRANSIÇÃO) */
 #play-button-container,
-#rsvp-form-container {
+#rsvp-form-container,
+#already-submitted-container { /* Incluindo o container de sucesso */
     padding: 25px; 
     background-color: rgba(255, 255, 255, 0.85); 
     border-radius: 10px;
