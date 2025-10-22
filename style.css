@@ -22,11 +22,11 @@ body {
     width: 100%;
     height: 100%;
     
-    /* ALTERAÇÃO: 'cover' é melhor para fundos de tela cheia */
-    object-fit: cover; 
+    /* ALTERAÇÃO CRÍTICA: Garante que o vídeo se encaixe MANTENDO A PROPORÇÃO. */
+    object-fit: contain; 
     
-    z-index: -10; /* Garante que fique no fundo */
-    background-color: black; 
+    z-index: -10; 
+    background-color: black; /* Garante que as barras laterais/superior fiquem pretas */
 }
 
 /* 3. Container de Conteúdo (Botão e Formulário) */
@@ -156,6 +156,7 @@ input[type="text"] {
     color: #4CAF50; /* Verde para feedback */
     font-size: 1.4em; /* Aumentado para destaque */
 }
+
 
 
 
