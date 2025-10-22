@@ -56,8 +56,47 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 500); // O tempo aqui (500ms) deve ser igual ao tempo de transição no CSS
     });
 
-    // --- Lógica do Formulário (REMOVIDA) ---
-    // O rsvpForm.addEventListener('submit', ...) foi REMOVIDO
-    // O envio de dados agora é tratado diretamente pelo FormSubmit
-    // configurado no atributo 'action' do seu arquivo index.html.
-});
+    // --- Lógica do Formulário (Gerenciar Envio) ---
+    const rsvpForm = document.getElementById('rsvp-form');
+    const alreadySubmittedContainer = document.getElementById('already-submitted-container');
+
+    rsvpForm.addEventListener('submit', (e) => {
+        e.preventDefault(); // Impede o envio padrão para gerenciar com JS
+        
+        // 1. Envia o formulário usando Fetch API (necessário para o FormSubmit sem redirecionamento)
+        fetch(rsvpForm.action, {
+            method: rsvpForm.method,
+            body: new FormData(rsvpForm),
+            headers: {
+                'Accept': 'application/json'
+            }
+        })
+        .then(response => {
+            if (response.ok) {
+                // Se o envio for OK:
+                
+                // 2. Inicia o FADE OUT do formulário atual
+                rsvpFormContainer.classList.remove('fade-in');
+                
+                // 3. Após a transição, esconde o formulário e mostra a caixa de sucesso
+                setTimeout(() => {
+                    // Esconde o formulário
+                    rsvpFormContainer.classList.add('hidden');
+                    
+                    // Exibe a caixa de sucesso (o container "#already-submitted-container")
+                    alreadySubmittedContainer.classList.remove('hidden');
+                    
+                    // Aplica o FADE IN à caixa de sucesso
+                    void alreadySubmittedContainer.offsetWidth; 
+                    alreadySubmittedContainer.classList.add('fade-in');
+                    
+                }, 500); // 500ms é o tempo de transição do CSS.
+            } else {
+                // Caso haja erro (como a falta de ativação):
+                alert("Ocorreu um erro ao enviar a confirmação. Por favor, verifique se ativou o formulário ou tente novamente mais tarde.");
+            }
+        })
+        .catch(error => console.error('Erro:', error));
+    });
+    // --- FIM Lógica do Formulário ---
+
