@@ -65,7 +65,7 @@ body {
 #already-submitted-container { /* Adicionei o container de "já enviou" aqui também */
     padding: 25px; /* CRÍTICO: Garante espaçamento interno */
     background-color: rgba(255, 255, 255, 0.85); 
-    border-radius: 15px;
+    border-radius: 10px;
     max-width: 270px; 
     width: 90%;
     text-align: center;
@@ -153,6 +153,7 @@ input[type="text"] {
     color: #4CAF50; /* Verde para feedback */
     font-size: 1.4em; /* Aumentado para destaque */
 }
+
 
 
 
