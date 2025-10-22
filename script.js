@@ -4,14 +4,17 @@ document.addEventListener('DOMContentLoaded', () => {
     const playButtonContainer = document.getElementById('play-button-container');
     const playButton = document.getElementById('play-button');
     const rsvpFormContainer = document.getElementById('rsvp-form-container');
-    // const rsvpForm = document.getElementById('rsvp-form'); // Não é mais necessário para o envio
-    // const feedbackMessage = document.getElementById('message'); // Não é mais necessário para a mensagem de sucesso
+    
+    // Novas referências necessárias
+    const rsvpForm = document.getElementById('rsvp-form');
+    // Usamos o 'already-submitted-container' como a nossa caixa de MENSAGEM DE SUCESSO
+    const successContainer = document.getElementById('already-submitted-container');
 
     // Função para mostrar o botão "Continuar" (COM FADE IN)
     const showPlayButton = () => {
         if (playButtonContainer.classList.contains('hidden')) {
             
-            // 1. Remove 'hidden' para exibir o elemento (ele já está com opacity: 0 no CSS)
+            // 1. Remove 'hidden' para exibir o elemento
             playButtonContainer.classList.remove('hidden');
             
             // 2. Truque para forçar o navegador a renderizar as mudanças de CSS (garante a transição)
@@ -38,8 +41,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // 1. Inicia o FADE OUT do botão atual
         playButtonContainer.classList.remove('fade-in');
         
-        // 2. Após 500ms (ajuste este valor no CSS se quiser uma transição mais lenta),
-        //    esconde o botão e inicia o FADE IN do formulário
+        // 2. Após 500ms (igual ao tempo de transição do CSS), esconde o botão e inicia o FADE IN do formulário
         setTimeout(() => {
             // Esconde o container do botão (DOM)
             playButtonContainer.classList.add('hidden');
@@ -56,14 +58,17 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 500); // O tempo aqui (500ms) deve ser igual ao tempo de transição no CSS
     });
 
-    // --- Lógica do Formulário (Gerenciar Envio) ---
-    const rsvpForm = document.getElementById('rsvp-form');
-    const alreadySubmittedContainer = document.getElementById('already-submitted-container');
+    // --- Lógica do Formulário (Gerenciar Envio e Transição de Sucesso) ---
 
     rsvpForm.addEventListener('submit', (e) => {
-        e.preventDefault(); // Impede o envio padrão para gerenciar com JS
+        e.preventDefault(); // Impede o envio padrão (para evitar o 404 e usar o Fetch)
         
-        // 1. Envia o formulário usando Fetch API (necessário para o FormSubmit sem redirecionamento)
+        // Desativa o botão e exibe "Enviando..."
+        const submitButton = rsvpForm.querySelector('button[type="submit"]');
+        submitButton.disabled = true;
+        submitButton.textContent = 'Enviando...';
+        
+        // Envia o formulário usando Fetch
         fetch(rsvpForm.action, {
             method: rsvpForm.method,
             body: new FormData(rsvpForm),
@@ -72,31 +77,41 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         })
         .then(response => {
+            // Reativa o botão
+            submitButton.disabled = false;
+            submitButton.textContent = 'Enviar Confirmação';
+
             if (response.ok) {
-                // Se o envio for OK:
+                // SUCESSO: Oculta o formulário e mostra a caixa de sucesso
                 
-                // 2. Inicia o FADE OUT do formulário atual
+                // 1. Inicia o FADE OUT do formulário
                 rsvpFormContainer.classList.remove('fade-in');
                 
-                // 3. Após a transição, esconde o formulário e mostra a caixa de sucesso
+                // 2. Após 500ms, faz a troca de containers
                 setTimeout(() => {
                     // Esconde o formulário
                     rsvpFormContainer.classList.add('hidden');
                     
                     // Exibe a caixa de sucesso (o container "#already-submitted-container")
-                    alreadySubmittedContainer.classList.remove('hidden');
+                    successContainer.classList.remove('hidden');
                     
                     // Aplica o FADE IN à caixa de sucesso
-                    void alreadySubmittedContainer.offsetWidth; 
-                    alreadySubmittedContainer.classList.add('fade-in');
+                    void successContainer.offsetWidth; 
+                    successContainer.classList.add('fade-in');
                     
-                }, 500); // 500ms é o tempo de transição do CSS.
+                }, 500); // 500ms é o tempo de transição do CSS
+                
             } else {
-                // Caso haja erro (como a falta de ativação):
-                alert("Ocorreu um erro ao enviar a confirmação. Por favor, verifique se ativou o formulário ou tente novamente mais tarde.");
+                // ERRO: O FormSubmit foi ativado, mas algo deu errado (ex: problema de rede)
+                alert("Ocorreu um erro ao enviar a confirmação. Por favor, tente novamente. (Status: " + response.status + ")");
             }
         })
-        .catch(error => console.error('Erro:', error));
+        .catch(error => {
+            // Erro de rede/conexão
+            submitButton.disabled = false;
+            submitButton.textContent = 'Enviar Confirmação';
+            alert("Erro de conexão. Verifique sua rede e tente novamente.");
+            console.error('Erro de rede:', error);
+        });
     });
-    // --- FIM Lógica do Formulário ---
-
+});
