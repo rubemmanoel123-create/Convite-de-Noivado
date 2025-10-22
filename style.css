@@ -3,15 +3,10 @@ body {
     margin: 0;
     padding: 0;
     font-family: Arial, sans-serif;
-    background-color: #222; 
-    color: rgb(0, 0, 0); 
+    background-color: #222; /* Cor de fundo para fallback/testes */
+    color: rgb(0, 0, 0); /* Cor do texto no BODY (importante para acessibilidade) */
     min-height: 100vh;
-    overflow: hidden; 
-    
-    /* REMOVER AS PROPRIEDADES FLEX DO BODY */
-    /* display: flex; 
-    justify-content: center; 
-    align-items: center; */
+    overflow: hidden; /* Garante que não haja barra de rolagem */
 }
 
 /* 2. Estilização Crítica do Vídeo de Fundo */
@@ -22,33 +17,16 @@ body {
     width: 100%;
     height: 100%;
     
-    /* ALTERAÇÃO CRÍTICA: Garante que o vídeo se encaixe MANTENDO A PROPORÇÃO. */
+    /* Garante que o vídeo se encaixe mantendo a proporção (contain) */
     object-fit: contain; 
     
-    z-index: -10; 
-    background-color: black; /* Garante que as barras laterais/superior fiquem pretas */
+    z-index: -10;
+    /* Filtros de brilho ou sobreposição foram removidos para deixar o vídeo aceso. */
+    background-color: black; /* Garante que as barras laterais fiquem pretas no modo 'contain' */
 }
 
 /* 3. Container de Conteúdo (Botão e Formulário) */
 .content-container {
-    /* Faz o container cobrir 100% da tela e flutuar sobre o vídeo */
-    position: absolute; 
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    
-    /* Camada acima do vídeo (z-index: -10) */
-    z-index: 1; 
-    
-    /* CRÍTICO: Usa Flexbox para centralizar o único item dentro dele (o painel) */
-    display: flex; 
-    justify-content: center; /* Centraliza Horizontalmente */
-    align-items: center; /* Centraliza Verticalmente */
-}
-
-/* IMPORTANTE: Se o código do seu .content-container no style.css ainda tiver: */
-/* .content-container {
     position: absolute;
     top: 0;
     left: 0;
@@ -57,26 +35,24 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-} */
-/* VOCÊ DEVE APAGAR TUDO E DEIXAR SÓ ISTO: */
-.content-container {
-    /* Vazio - Deixe o body controlar o posicionamento */
+    /* Camada de sobreposição escura (background-color: rgba) foi removida. */
 }
+
 /* 4. Estilos Comuns de Painel e Botão (COM TRANSIÇÃO) */
 #play-button-container,
-#rsvp-form-container,
-#already-submitted-container { /* Adicionei o container de "já enviou" aqui também */
-    padding: 25px; /* CRÍTICO: Garante espaçamento interno */
+#rsvp-form-container {
+    padding: 25px; 
     background-color: rgba(255, 255, 255, 0.85); 
     border-radius: 10px;
-    max-width: 300px; 
+    max-width: 350px; 
     width: 90%;
     text-align: center;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
 
-    /* PROPRIEDADES DE TRANSIÇÃO (Mantenha estas) */
+    /* PROPRIEDADES DE TRANSIÇÃO */
     opacity: 0; 
     transform: scale(0.9); 
+    /* DURAÇÃO AUMENTADA PARA 1.5 SEGUNDOS */
     transition: opacity 1.5s ease-out, transform 1.5s ease-out; 
 }
 
@@ -156,23 +132,3 @@ input[type="text"] {
     color: #4CAF50; /* Verde para feedback */
     font-size: 1.4em; /* Aumentado para destaque */
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
