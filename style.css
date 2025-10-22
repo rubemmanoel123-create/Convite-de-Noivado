@@ -36,12 +36,14 @@ body {
     justify-content: center;
     align-items: center;
     /* Camada de sobreposição escura (background-color: rgba) foi removida. */
+    
+    z-index: 10; /* CORREÇÃO 1: Garante que o conteúdo fique acima do vídeo */
 }
 
 /* 4. Estilos Comuns de Painel e Botão (COM TRANSIÇÃO) */
 #play-button-container,
 #rsvp-form-container,
-#already-submitted-container { /* Incluindo o container de sucesso */
+#already-submitted-container {
     padding: 25px; 
     background-color: rgba(255, 255, 255, 0.85); 
     border-radius: 10px;
@@ -132,4 +134,9 @@ input[type="text"] {
     font-weight: bold;
     color: #4CAF50; /* Verde para feedback */
     font-size: 1.4em; /* Aumentado para destaque */
+}
+
+/* CORREÇÃO FINAL PARA GARANTIR A EXIBIÇÃO DO BOTÃO INICIAL */
+#play-button-container.fade-in {
+    display: flex !important; /* CORREÇÃO 2: Garante que o Flexbox funcione e o contêiner apareça */
 }
