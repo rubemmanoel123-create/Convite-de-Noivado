@@ -11,19 +11,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Função para mostrar o botão "Continuar" (COM FADE IN)
     const showPlayButton = () => {
-        if (playButtonContainer.classList.contains('hidden')) {
-            
-            // 1. Remove 'hidden' para exibir o elemento
-            playButtonContainer.classList.remove('hidden');
-            
-            // 2. Truque para forçar o navegador a renderizar as mudanças de CSS
-            void playButtonContainer.offsetWidth; 
-            
-            // 3. Adiciona 'fade-in' para disparar a transição suave
-            playButtonContainer.classList.add('fade-in');
+        // A lógica de "if (playButtonContainer.classList.contains('hidden'))" foi removida 
+        // para garantir que o botão sempre receba o fade-in após o tempo limite.
+        
+        // 1. Truque para forçar o navegador a renderizar as mudanças de CSS
+        void playButtonContainer.offsetWidth; 
+        
+        // 2. Adiciona 'fade-in' para disparar a transição suave (aparecer)
+        playButtonContainer.classList.add('fade-in');
 
-            video.pause(); // Pausa o vídeo
-        }
+        video.pause(); // Pausa o vídeo
     };
 
     // --- Lógica de Transição do Vídeo ---
@@ -31,8 +28,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // 1. Usa o evento 'ended' do vídeo
     video.addEventListener('ended', showPlayButton);
 
-    // 2. Fallback de 3 segundos (temporizador ajustado)
-    setTimeout(showPlayButton, 3000);
+    // 2. Fallback de 3 segundos (TEMPORIZADOR INICIA A EXIBIÇÃO)
+    setTimeout(showPlayButton, 3000); 
 
     // --- Lógica do Botão "Continuar" (COM FADE OUT e FADE IN) ---
 
@@ -56,7 +53,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- Lógica do Formulário (Gerenciar Envio e Transição de Sucesso) ---
 
     rsvpForm.addEventListener('submit', (e) => {
-        e.preventDefault(); // Impede o envio padrão (para evitar o 404 e usar o Fetch)
+        e.preventDefault(); // Impede o envio padrão (para usar o Fetch)
         
         // Desativa o botão e exibe "Enviando..."
         const submitButton = rsvpForm.querySelector('button[type="submit"]');
@@ -97,7 +94,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 }, 500); // 500ms é o tempo de transição no CSS
                 
             } else {
-                // ERRO: Algum problema com o FormSubmit (mesmo ativado)
+                // ERRO
                 alert("Ocorreu um erro ao enviar a confirmação. Por favor, tente novamente.");
             }
         })
