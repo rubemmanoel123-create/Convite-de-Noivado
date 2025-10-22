@@ -5,9 +5,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const playButton = document.getElementById('play-button');
     const rsvpFormContainer = document.getElementById('rsvp-form-container');
     
-    // Novas referências necessárias
+    // Referências necessárias para o envio
     const rsvpForm = document.getElementById('rsvp-form');
-    // Usamos o 'already-submitted-container' como a nossa caixa de MENSAGEM DE SUCESSO
     const successContainer = document.getElementById('already-submitted-container');
 
     // Função para mostrar o botão "Continuar" (COM FADE IN)
@@ -17,7 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
             // 1. Remove 'hidden' para exibir o elemento
             playButtonContainer.classList.remove('hidden');
             
-            // 2. Truque para forçar o navegador a renderizar as mudanças de CSS (garante a transição)
+            // 2. Truque para forçar o navegador a renderizar as mudanças de CSS
             void playButtonContainer.offsetWidth; 
             
             // 3. Adiciona 'fade-in' para disparar a transição suave
@@ -33,7 +32,7 @@ document.addEventListener('DOMContentLoaded', () => {
     video.addEventListener('ended', showPlayButton);
 
     // 2. Fallback de 3 segundos (temporizador ajustado)
-    setTimeout(showPlayButton, 3000); // 3000 milissegundos = 3 segundos
+    setTimeout(showPlayButton, 3000);
 
     // --- Lógica do Botão "Continuar" (COM FADE OUT e FADE IN) ---
 
@@ -41,21 +40,17 @@ document.addEventListener('DOMContentLoaded', () => {
         // 1. Inicia o FADE OUT do botão atual
         playButtonContainer.classList.remove('fade-in');
         
-        // 2. Após 500ms (igual ao tempo de transição do CSS), esconde o botão e inicia o FADE IN do formulário
+        // 2. Após 500ms, esconde o botão e inicia o FADE IN do formulário
         setTimeout(() => {
-            // Esconde o container do botão (DOM)
             playButtonContainer.classList.add('hidden');
-            
-            // Exibe o container do formulário (DOM)
             rsvpFormContainer.classList.remove('hidden');
             
-            // Truque para forçar o navegador a reconhecer o elemento antes de aplicar a transição
             void rsvpFormContainer.offsetWidth; 
             
             // 3. Aplica o FADE IN ao formulário
             rsvpFormContainer.classList.add('fade-in');
             
-        }, 500); // O tempo aqui (500ms) deve ser igual ao tempo de transição no CSS
+        }, 500); // 500ms é o tempo de transição no CSS
     });
 
     // --- Lógica do Formulário (Gerenciar Envio e Transição de Sucesso) ---
@@ -77,7 +72,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         })
         .then(response => {
-            // Reativa o botão
+            // Reativa o botão (em caso de erro ou sucesso)
             submitButton.disabled = false;
             submitButton.textContent = 'Enviar Confirmação';
 
@@ -99,11 +94,11 @@ document.addEventListener('DOMContentLoaded', () => {
                     void successContainer.offsetWidth; 
                     successContainer.classList.add('fade-in');
                     
-                }, 500); // 500ms é o tempo de transição do CSS
+                }, 500); // 500ms é o tempo de transição no CSS
                 
             } else {
-                // ERRO: O FormSubmit foi ativado, mas algo deu errado (ex: problema de rede)
-                alert("Ocorreu um erro ao enviar a confirmação. Por favor, tente novamente. (Status: " + response.status + ")");
+                // ERRO: Algum problema com o FormSubmit (mesmo ativado)
+                alert("Ocorreu um erro ao enviar a confirmação. Por favor, tente novamente.");
             }
         })
         .catch(error => {
