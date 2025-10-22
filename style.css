@@ -61,8 +61,9 @@ body {
 }
 /* 4. Estilos Comuns de Painel e Botão (COM TRANSIÇÃO) */
 #play-button-container,
-#rsvp-form-container {
-    padding: 25px; 
+#rsvp-form-container,
+#already-submitted-container { /* Adicionei o container de "já enviou" aqui também */
+    padding: 25px; /* CRÍTICO: Garante espaçamento interno */
     background-color: rgba(255, 255, 255, 0.85); 
     border-radius: 10px;
     max-width: 350px; 
@@ -70,10 +71,9 @@ body {
     text-align: center;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
 
-    /* PROPRIEDADES DE TRANSIÇÃO */
+    /* PROPRIEDADES DE TRANSIÇÃO (Mantenha estas) */
     opacity: 0; 
     transform: scale(0.9); 
-    /* DURAÇÃO AUMENTADA PARA 1.5 SEGUNDOS */
     transition: opacity 1.5s ease-out, transform 1.5s ease-out; 
 }
 
@@ -153,6 +153,7 @@ input[type="text"] {
     color: #4CAF50; /* Verde para feedback */
     font-size: 1.4em; /* Aumentado para destaque */
 }
+
 
 
 
