@@ -1,56 +1,72 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Confirmação de Presença | Noivado</title> 
-    <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Obrigado pela Confirmação!</title>
+    <link rel="stylesheet" href="style.css"> 
+    <style>
+        /* Estilos específicos para a página de sucesso */
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            text-align: center;
+        }
+        .feedback-box {
+            padding: 40px;
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+            max-width: 400px;
+            width: 90%;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+            /* Configuração do Fade-in (usando as propriedades do style.css) */
+            opacity: 0; 
+            transform: scale(0.9); 
+            transition: opacity 1.5s ease-out, transform 1.5s ease-out; /* Note a duração de 1.5s */
+        }
+        /* Classe para ativar o Fade-in após o carregamento */
+        .feedback-box.show {
+            opacity: 1;
+            transform: scale(1);
+        }
+        .feedback-box h1 {
+            color: #4CAF50; /* Verde de sucesso */
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+        .feedback-box p {
+            font-size: 1.4em;
+            font-weight: bold;
+            color: #010101; 
+        }
+    </style>
 </head>
 <body>
+    
+    <video id="background-video" autoplay loop muted playsinline>
+        <source src="fundo.mp4" type="video/mp4">
+        Seu navegador não suporta vídeos.
+    </video>
 
-    <video id="background-video" autoplay loop muted playsinline>
-        <source src="fundo.mp4" type="video/mp4">
-        Seu navegador não suporta vídeos.
-    </video>
-
-    <div class="content-container">
-        
-                <div id="play-button-container" class="hidden">
-            <h1>Confirme sua presença!</h1>
-            <button id="play-button">CONTINUAR</button>
-        </div>
-
-        <div id="already-submitted-container" class="hidden">
-            <h1>Obrigado!</h1>
-            <p style="font-size: 1.2em; color: #010101; font-weight: bold;">Sua confirmação já foi registrada.</p>
-            <p style="font-size: 0.9em; color: #333;">Você não precisa enviar novamente.</p>
+    <div class="content-container">
+        <div class="feedback-box" id="feedback-box">
+            <h1>🎉 Presença Confirmada!</h1>
+            <p>Sua presença está confirmada! Nos vemos lá.</p>
+            <p style="font-size: 0.9em; font-weight: normal; margin-top: 20px;">Obrigado por confirmar.</p>
         </div>
-
-                <div id="rsvp-form-container" class="hidden">
-            <h2>Confirmação de Presença</h2>
-            
-            <form id="rsvp-form" action="https://formsubmit.co/rubemmanoel123@gmail.com" method="POST">
-                
-                <div class="form-group">
-                    <label for="nome">Nome Completo:</label>
-                    <input type="text" id="nome" name="Nome Completo" required>
-                </div>
-                
-                <div class="form-group checkbox-group">
-                    <input type="checkbox" id="confirmar" name="Confirmacao" value="Sim" required>
-                    <label for="confirmar">Sim, confirmo minha presença no Noivado! 🎉</label>
-                </div>
-
-                <button type="submit">Enviar Confirmação</button>
-
-                <input type="hidden" name="_captcha" value="false"> 
-                <input type="hidden" name="_next" value="https://rubemmanoel123-create.github.io/Convite-de-Noivado/obrigado.html"> 
-            </form>
-            
-            <p id="message" class="hidden"></p>
-        </div>
-    </div>
-
-    <script src="script.js"></script>
+    </div>
+    
+    <script>
+        // Script para aplicar o fade-in na caixa de feedback
+        document.addEventListener('DOMContentLoaded', () => {
+            const feedbackBox = document.getElementById('feedback-box');
+            // Aplica o 'show' logo após o carregamento para disparar a transição
+            setTimeout(() => {
+                feedbackBox.classList.add('show');
+            }, 100); 
+        });
+    </script>
 </body>
 </html>
