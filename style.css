@@ -8,10 +8,10 @@ body {
     min-height: 100vh;
     overflow: hidden; 
     
-    /* CRÍTICO: Flexbox no BODY para centralizar o conteúdo do site */
-    display: flex;
-    justify-content: center; /* Centraliza Horizontalmente */
-    align-items: center; /* Centraliza Verticalmente */
+    /* REMOVER AS PROPRIEDADES FLEX DO BODY */
+    /* display: flex; 
+    justify-content: center; 
+    align-items: center; */
 }
 
 /* 2. Estilização Crítica do Vídeo de Fundo */
@@ -22,29 +22,29 @@ body {
     width: 100%;
     height: 100%;
     
-    /* Garante que o vídeo se encaixe mantendo a proporção (contain) */
-    object-fit: contain; 
+    /* ALTERAÇÃO: 'cover' é melhor para fundos de tela cheia */
+    object-fit: cover; 
     
-    z-index: -10;
-    /* Filtros de brilho ou sobreposição foram removidos para deixar o vídeo aceso. */
-    background-color: black; /* Garante que as barras laterais fiquem pretas no modo 'contain' */
+    z-index: -10; /* Garante que fique no fundo */
+    background-color: black; 
 }
 
 /* 3. Container de Conteúdo (Botão e Formulário) */
 .content-container {
-    position: absolute; /* Voltamos para absolute */
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    
-    /* GARANTE que este container está acima do vídeo (que tem z-index: -10) */
-    z-index: -5; 
+    /* Faz o container cobrir 100% da tela e flutuar sobre o vídeo */
+    position: absolute; 
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
     
-    /* Usamos o BODY para centralizar, mas este container deve cobrir tudo */
-    display: flex; /* Adicione display: flex para que o item seja centralizado internamente */
-    justify-content: center;
-    align-items: center;
+    /* Camada acima do vídeo (z-index: -10) */
+    z-index: 1; 
+    
+    /* CRÍTICO: Usa Flexbox para centralizar o único item dentro dele (o painel) */
+    display: flex; 
+    justify-content: center; /* Centraliza Horizontalmente */
+    align-items: center; /* Centraliza Verticalmente */
 }
 
 /* IMPORTANTE: Se o código do seu .content-container no style.css ainda tiver: */
@@ -156,6 +156,7 @@ input[type="text"] {
     color: #4CAF50; /* Verde para feedback */
     font-size: 1.4em; /* Aumentado para destaque */
 }
+
 
 
 
