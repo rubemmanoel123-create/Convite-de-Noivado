@@ -5,32 +5,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const playButton = document.getElementById('play-button');
     const rsvpFormContainer = document.getElementById('rsvp-form-container');
     
-    // Referências necessárias para o envio
+    // Referências necessárias para o envio e sucesso
     const rsvpForm = document.getElementById('rsvp-form');
     const successContainer = document.getElementById('already-submitted-container');
 
-    // Função para mostrar o botão "Continuar" (COM FADE IN)
-    const showPlayButton = () => {
-        // A lógica de "if (playButtonContainer.classList.contains('hidden'))" foi removida 
-        // para garantir que o botão sempre receba o fade-in após o tempo limite.
-        
-        // 1. Truque para forçar o navegador a renderizar as mudanças de CSS
-        void playButtonContainer.offsetWidth; 
-        
-        // 2. Adiciona 'fade-in' para disparar a transição suave (aparecer)
-        playButtonContainer.classList.add('fade-in');
-
-        video.pause(); // Pausa o vídeo
-    };
-
-    // --- Lógica de Transição do Vídeo ---
-
-    // 1. Usa o evento 'ended' do vídeo
-    video.addEventListener('ended', showPlayButton);
-
-    // 2. Fallback de 3 segundos (TEMPORIZADOR INICIA A EXIBIÇÃO)
-    setTimeout(showPlayButton, 3000); 
-
+    // O botão já aparece via CSS/HTML. Apenas pausamos o vídeo (opcional, mas recomendado).
+    video.pause(); 
+    
     // --- Lógica do Botão "Continuar" (COM FADE OUT e FADE IN) ---
 
     playButton.addEventListener('click', () => {
@@ -39,8 +20,8 @@ document.addEventListener('DOMContentLoaded', () => {
         
         // 2. Após 500ms, esconde o botão e inicia o FADE IN do formulário
         setTimeout(() => {
-            playButtonContainer.classList.add('hidden');
-            rsvpFormContainer.classList.remove('hidden');
+            playButtonContainer.classList.add('hidden'); // Usa display: none
+            rsvpFormContainer.classList.remove('hidden'); // Remove display: none
             
             void rsvpFormContainer.offsetWidth; 
             
@@ -69,7 +50,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         })
         .then(response => {
-            // Reativa o botão (em caso de erro ou sucesso)
+            // Reativa o botão
             submitButton.disabled = false;
             submitButton.textContent = 'Enviar Confirmação';
 
