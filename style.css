@@ -32,16 +32,19 @@ body {
 
 /* 3. Container de Conteúdo (Botão e Formulário) */
 .content-container {
-    /* REMOVIDO: position: absolute, top, left, width: 100%, height: 100% */
-    /* Agora o BODY faz o posicionamento e alinhamento */
+    position: absolute; /* Voltamos para absolute */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    
+    /* GARANTE que este container está acima do vídeo (que tem z-index: -10) */
+    z-index: -5; 
     
-    /* Manter o display: flex só se houver mais de um item a ser alinhado dentro,
-       mas por agora, vamos simplificar para que ele se comporte como um bloco
-       centralizado pelo body. */
-    /* Se você está vendo a caixa desalinhada, é provável que esse bloco esteja puxando */
-    
-    /* VAMOS TENTAR DEIXAR SOMENTE O ESSENCIAL */
-    /* Não precisa mais de Flexbox aqui, pois o BODY está fazendo o trabalho */
+    /* Usamos o BODY para centralizar, mas este container deve cobrir tudo */
+    display: flex; /* Adicione display: flex para que o item seja centralizado internamente */
+    justify-content: center;
+    align-items: center;
 }
 
 /* IMPORTANTE: Se o código do seu .content-container no style.css ainda tiver: */
@@ -153,6 +156,7 @@ input[type="text"] {
     color: #4CAF50; /* Verde para feedback */
     font-size: 1.4em; /* Aumentado para destaque */
 }
+
 
 
 
