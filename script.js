@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const rsvpForm = document.getElementById('rsvp-form');
     const successContainer = document.getElementById('already-submitted-container');
 
-    // O botão já aparece via CSS/HTML. Apenas pausamos o vídeo (opcional, mas recomendado).
+    // O botão já aparece via CSS/HTML. Apenas pausamos o vídeo.
     video.pause(); 
     
     // --- Lógica do Botão "Continuar" (COM FADE OUT e FADE IN) ---
