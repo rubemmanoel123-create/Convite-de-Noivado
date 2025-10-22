@@ -1,54 +1,54 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Confirmação de Presença | Casamento</title>
-    <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confirmação de Presença | Casamento</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <video id="background-video" autoplay loop muted playsinline>
-        <source src="fundo.mp4" type="video/mp4">
-        Seu navegador não suporta vídeos.
-    </video>
+    <video id="background-video" autoplay loop muted playsinline>
+        <source src="fundo.mp4" type="video/mp4">
+        Seu navegador não suporta vídeos.
+    </video>
 
 <div class="content-container">
-    
-    <div id="play-button-container" class="hidden">
-        <h1>Confirme sua presença!</h1>
-        <button id="play-button">CONTINUAR</button>
-    </div>
+    
+        <div id="play-button-container" class="hidden">
+        <h1>Confirme sua presença!</h1>
+        <button id="play-button">CONTINUAR</button>
+    </div>
 
-    <div id="already-submitted-container" class="hidden">
-        <h1>Obrigado!</h1>
-        <p style="font-size: 1.2em; color: #010101; font-weight: bold;">Sua confirmação já foi registrada.</p>
-        <p style="font-size: 0.9em; color: #333;">Você não precisa enviar novamente.</p>
-    </div>
-    
-    <div id="rsvp-form-container" class="hidden">
-        <h2>Confirmação de Presença</h2>
-        
-        <form id="rsvp-form" action="https://formsubmit.co/rubemmanoel123@gmail.com" method="POST">
-            
-            <div class="form-group">
-                <label for="nome">Nome Completo:</label>
-                <input type="text" id="nome" name="Nome Completo" required>
-            </div>
-            
-            <div class="form-group checkbox-group">
-                <input type="checkbox" id="confirmar" name="Confirmacao" value="Sim" required>
-                <label for="confirmar">Sim, confirmo minha presença no Noivado! 🎉</label>
-            </div>
+        <div id="already-submitted-container" class="hidden">
+        <h1>Obrigado!</h1>
+        <p style="font-size: 1.2em; color: #010101; font-weight: bold;">Sua confirmação já foi registrada.</p>
+        <p style="font-size: 0.9em; color: #333;">Você não precisa enviar novamente.</p>
+    </div>
+    
+        <div id="rsvp-form-container" class="hidden">
+        <h2>Confirmação de Presença</h2>
+        
+                <form id="rsvp-form" action="https://formsubmit.co/rubemmanoel123@gmail.com" method="POST">
+            
+            <div class="form-group">
+                <label for="nome">Nome Completo:</label>
+                <input type="text" id="nome" name="Nome Completo" required>
+            </div>
+            
+            <div class="form-group checkbox-group">
+                <input type="checkbox" id="confirmar" name="Confirmacao" value="Sim" required>
+                <label for="confirmar">Sim, confirmo minha presença no Noivado! 🎉</label>
+            </div>
 
-            <button type="submit">Enviar Confirmação</button>
+            <button type="submit">Enviar Confirmação</button>
 
-            <input type="hidden" name="_captcha" value="false"> 
-            <input type="hidden" name="_next" value="obrigado.html"> 
-        </form>
-        
-        <p id="message" class="hidden"></p>
-    </div>
+            <input type="hidden" name="_captcha" value="false"> 
+                        <input type="hidden" name="_next" value="obrigado.html"> 
+        </form>
+        
+        <p id="message" class="hidden"></p>
+    </div>
     </div>
 
 <script src="script.js"></script>
