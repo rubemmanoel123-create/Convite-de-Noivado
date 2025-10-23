@@ -9,12 +9,15 @@ document.addEventListener('DOMContentLoaded', () => {
     const rsvpForm = document.getElementById('rsvp-form');
     const successContainer = document.getElementById('already-submitted-container');
 
-    // O botão já aparece via CSS/HTML. Apenas pausamos o vídeo.
+    // PAUSA o vídeo na inicialização (vai começar a tocar no clique do botão).
     video.pause(); 
     
     // --- Lógica do Botão "Continuar" (COM FADE OUT e FADE IN) ---
 
     playButton.addEventListener('click', () => {
+        // CORREÇÃO/ADICIONAL: Inicia a reprodução do vídeo no clique do botão.
+        video.play();
+
         // 1. Inicia o FADE OUT do botão atual
         playButtonContainer.classList.remove('fade-in');
         
@@ -23,6 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
             playButtonContainer.classList.add('hidden'); // Usa display: none
             rsvpFormContainer.classList.remove('hidden'); // Remove display: none
             
+            // Força o reflow para garantir a transição
             void rsvpFormContainer.offsetWidth; 
             
             // 3. Aplica o FADE IN ao formulário
