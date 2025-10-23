@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Função para exibir a tela de sucesso e ocultar as outras
     const showSuccessScreen = () => {
-        // Esconde o botão e o formulário, se estiverem visíveis
+        // Esconde o botão e o formulário
         playButtonContainer.classList.add('hidden');
         rsvpFormContainer.classList.add('hidden');
         
@@ -23,7 +23,11 @@ document.addEventListener('DOMContentLoaded', () => {
         void successContainer.offsetWidth; 
         successContainer.classList.add('fade-in');
         
-        video.pause();
+        // Tenta garantir que o vídeo esteja rodando para o fundo da mensagem de sucesso
+        video.play().catch(e => {
+            console.log("Falha ao tentar iniciar vídeo: ", e);
+            // Ignore o erro, é comum em modo silencioso no celular.
+        });
     };
 
     // Função para exibir o botão "CONTINUAR"
@@ -32,17 +36,21 @@ document.addEventListener('DOMContentLoaded', () => {
         successContainer.classList.add('hidden');
         
         playButtonContainer.classList.remove('hidden');
-        void playButtonContainer.offsetWidth;
-        playButtonContainer.classList.add('fade-in');
+        // A classe 'fade-in' já está no HTML, então apenas garantimos a visibilidade.
+        // Se ela não estiver no HTML, ela deve ser adicionada aqui:
+        playButtonContainer.classList.add('fade-in'); 
         
-        video.pause();
+        // Tenta garantir que o vídeo esteja rodando ao mostrar a tela inicial
+        video.play().catch(e => {
+            console.log("Falha ao tentar iniciar vídeo: ", e);
+        });
     };
     
     // --- LÓGICA DE INICIALIZAÇÃO (CHECA O LOCALSTORAGE) ---
     
-    // 1. Verifica o estado no LocalStorage
+    // Verifica o estado no LocalStorage
     if (localStorage.getItem(SUBMITTED_KEY) === 'true') {
-        // Se já submeteu, vai direto para a tela de sucesso
+        // Se já submeteu, vai direto para a tela de sucesso (PROBLEMA DE PERSISTÊNCIA RESOLVIDO)
         showSuccessScreen();
         
     } else {
@@ -56,6 +64,9 @@ document.addEventListener('DOMContentLoaded', () => {
     playButton.addEventListener('click', () => {
         // Fade Out do botão
         playButtonContainer.classList.remove('fade-in');
+        
+        // Pausa o vídeo enquanto o formulário está na frente
+        video.pause(); 
         
         setTimeout(() => {
             playButtonContainer.classList.add('hidden');
