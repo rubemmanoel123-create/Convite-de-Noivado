@@ -6,7 +6,7 @@ body {
     background-color: #222; /* Cor de fundo para fallback/testes */
     color: rgb(0, 0, 0); /* Cor do texto no BODY (importante para acessibilidade) */
     min-height: 100vh;
-    overflow: hidden; /* Garante que não haja barra de rolagem */
+    /* overflow: hidden; <== COMENTADO/REMOVIDO: Pode causar problemas em alguns navegadores/configurações. */
 }
 
 /* 2. Estilização Crítica do Vídeo de Fundo */
@@ -17,12 +17,12 @@ body {
     width: 100%;
     height: 100%;
     
-    /* Garante que o vídeo se encaixe mantendo a proporção (contain) */
-    object-fit: contain; 
+    /* CORREÇÃO: Usar 'cover' garante que o vídeo preencha toda a tela, cortando as bordas se necessário. */
+    object-fit: cover; 
     
     z-index: -10;
-    /* Filtros de brilho ou sobreposição foram removidos para deixar o vídeo aceso. */
-    background-color: black; /* Garante que as barras laterais fiquem pretas no modo 'contain' */
+    /* O background-color: black; não é mais estritamente necessário com 'cover', mas pode ficar como fallback */
+    background-color: black; 
 }
 
 /* 3. Container de Conteúdo (Botão e Formulário) */
@@ -138,5 +138,5 @@ input[type="text"] {
 
 /* CORREÇÃO FINAL PARA GARANTIR A EXIBIÇÃO DO BOTÃO INICIAL */
 #play-button-container.fade-in {
-    display: flex !important; /* CORREÇÃO 2: Garante que o Flexbox funcione e o contêiner apareça */
+    display: flex !important; /* Garante que o Flexbox funcione e o contêiner apareça */
 }
